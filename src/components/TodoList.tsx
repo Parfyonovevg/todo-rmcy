@@ -3,19 +3,15 @@ import { type Todo } from '../../types/todo';
 
 type TodoListProps = {
   todos: Todo[];
-  deleteTodo: (id: string) => void;
-  toggleTodo: (id: string) => void;
 };
 
-const TodoList: React.FC<TodoListProps> = ({ todos, deleteTodo, toggleTodo }) => {
+const TodoList: React.FC<TodoListProps> = ({ todos }) => {
   return (
     <ul>
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}
           todo={todo}
-          deleteTodo={deleteTodo}
-          toggleTodo={toggleTodo}
         />
       ))}
     </ul>

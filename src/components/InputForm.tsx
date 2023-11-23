@@ -1,15 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Stack from 'react-bootstrap/Stack';
 
+import { TodoContext } from '../store/store';
 
-type InputFormProps = {
-  addTodo: (text: string) => void;
-};
-
-const InputForm: React.FC<InputFormProps> = ({ addTodo }) => {
+const InputForm: React.FC = () => {
   const [todoText, setTodoText] = useState('');
+  const todosCtx = useContext(TodoContext);
 
   const onInputTextHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const text = event.target.value;
@@ -19,7 +17,7 @@ const InputForm: React.FC<InputFormProps> = ({ addTodo }) => {
   const onSubmitHandler = (event: React.SyntheticEvent) => {
     event.preventDefault();
     if (todoText.trim() !== '' && todoText.length > 3 && isNaN(+todoText)) {
-      addTodo(todoText);
+      todosCtx.addTodo(todoText);
       setTodoText('');
     } else {
       return alert('Invalid input');
