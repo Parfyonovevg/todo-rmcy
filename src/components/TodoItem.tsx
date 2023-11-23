@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+
 import Stack from 'react-bootstrap/Stack';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
@@ -5,23 +7,23 @@ import Button from 'react-bootstrap/Button';
 
 import { FaTrash } from 'react-icons/fa';
 
+import { TodoContext } from '../store//store';
 import { type Todo } from '../../types/todo';
 
 type TodoProps = {
   todo: Todo;
-  deleteTodo: (id: string) => void;
-  toggleTodo: (id: string) => void;
 };
 
-const TodoItem: React.FC<TodoProps> = ({ todo, deleteTodo, toggleTodo }) => {
+const TodoItem: React.FC<TodoProps> = ({ todo }) => {
+  const todosCtx = useContext(TodoContext);
   const { id, text, date, done } = todo;
 
   const deleteHandler = () => {
-    deleteTodo(id);
+    todosCtx.removeTodo(id);
   };
 
   const toggleTodoHandler = () => {
-    toggleTodo(id);
+    todosCtx.toggleTodo(id);
   };
 
   const fontColor = { color: done ? 'grey' : 'inherit' };
@@ -30,7 +32,7 @@ const TodoItem: React.FC<TodoProps> = ({ todo, deleteTodo, toggleTodo }) => {
     <li>
       <Card>
         <Stack direction='horizontal' className='p-2' style={fontColor}>
-          <Form.Check onChange={toggleTodoHandler} checked={done} />
+          <Form.Check checked={done} onChange={toggleTodoHandler} />
           <div className='p-2'>{text}</div>
           <div className='p-2 ms-auto'>{date}</div>
           <Button
