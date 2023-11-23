@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 !important;
+}
+
+input[type='checkbox'] {
+  background-color: #dde2e6;
+}
